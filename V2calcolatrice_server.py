@@ -2,9 +2,10 @@ import socket
 import json
 
 SERVER_IP= "127.0.0.1"
-SERVER_PORT = 5005
+SERVER_PORT = 22013
 BUFFER_SIZE = 1024
 
+print("Server in attesa di messaggio")
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock_server:
     sock_server.bind((SERVER_IP, SERVER_PORT))
@@ -12,7 +13,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock_server:
     print(f"Server in ascolto su {SERVER_IP}:{SERVER_PORT}...")
     while True:
         sock_service, address_client= sock_server.accept()
-
+        print(f" connessione ricevuta da {address_client}")
         with sock_service as sock_client:
             while True:
                 data,addr=sock_client.recvfrom(1024)
