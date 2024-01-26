@@ -2,7 +2,7 @@ import socket, json
 from threading import Thread
 
 SERVER_ADDRESS = '127.0.0.1'
-SERVER_PORT=  5005
+SERVER_PORT=  22224
 BUFFER_SIZE=1024
 
 def ricevi_connessioni(sock_listen):
@@ -16,21 +16,21 @@ def ricevi_connessioni(sock_listen):
             print("Il thread non si avvia")
             sock_listen.close()
 
-def avvia_server(indirizzo,porta):
+def avvia_server(SERVER_ADDRESS,SERVER_PORT):
     try:
         print("avvio in corso...")
         sock_listen=socket.socket()
         sock_listen.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
-        sock_listen.bind((indirizzo,porta))
+        sock_listen.bind((SERVER_ADDRESS,SERVER_PORT))
         sock_listen.listen(5)
         ricevi_connessioni(sock_listen)
-        print("server in ascolto su %s. Termina con ko"% str((indirizzo,porta)))
+        print("server in ascolto su %s. Termina con ko"% str((SERVER_ADDRESS,SERVER_PORT)))
     except socket.error as errore:
         print(f"Qualcosa è andato storto...\n{errore}")
     
-def ricevi_comandi(sock, addr_client):
+def ricevi_comandi(sock_service, addr_client):
     print("In attesa di comandi da", addr_client)
-    with sock as sock_client:
+    with sock_service as sock_client:
         while True:
             dati=sock_client.recv(BUFFER_SIZE).decode()
             if not dati:
@@ -56,7 +56,7 @@ def ricevi_comandi(sock, addr_client):
             print(ris,type(ris))
             sock_client.sendall(ris.encode())
 
-        sock.close()
+        sock_service.close()
 
 if __name__ == '__main__': 
     avvia_server(SERVER_ADDRESS,SERVER_PORT)
