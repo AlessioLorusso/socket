@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -22,7 +23,8 @@
         </tr>
     </table>
     <script>
-        var access_token="BQB9H9GXOZBIOyQyhnYLtLYk75vNnuGzzQvn_ffXQ8gGwCu3gD1OpW3I9OS6G_xUspHsGQV517Tkxy74U5cq-k-MQPEiQGwpQe-DLmtHZwE-VL-kQM7CIb2131Y6BvUfK6h7gidXrK3BQ0mXUvE8boQED-dD5pmtt1e3i8NGCztDW5nkZJbnV87jqkuu_2JwDk0LVW6oZFHqatRUYpTtB1Bdd6cW";
+        
+        var access_token="BQApGN6k5yVtqFvZEcJYH3cJXE-Upnf-Nkft6gwzXRfOCshjWpVfEdpCKie1X7yNYn1s5aaJ1cpXRCHj9dWbn6LZzhQXbzRZirV7L6oYz1nqyHxi1M2fGQRylW3cR1WnPzwNlJ1Zk1IVUh-73xy3Jm6LYke7vR8y9OGsd_aJvJ7RtC0aanAA_L8f1jQFFSHbPoIMJwL8KodQl1KGdAH6foBv1Eta";
         var album_id = "3ilgQgVMtxAxN2Jmb1OM29"
 
         async function ascoltiRecenti(){
@@ -50,7 +52,7 @@
 
         async function renderTable(){
             try{
-
+                
                 const canzoniRecenti = await ascoltiRecenti();
                 let tbody="";
                 canzoniRecenti.forEach(song => {
@@ -63,8 +65,8 @@
 
                 tbody += `<tr><td><a href="${albumUrl}"> ${artistName} </a></td>`;
                 tbody += "<td>" + albumTitle + "</td>";
-                tbody += `<td><img src="${albumCoverUrl}" alt="Copertina Album" width="50"></td>`;
-                tbody += `<td><a href="${listen}">play</a></td>`;
+                tbody += `<td><a href = "https://open.spotify.com/album/${albumUrl}"><img src="${albumCoverUrl}" alt="Copertina Album" width="50"></a></td>`;
+                tbody += `<td><a href="${listen}"><img src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/1024px-Spotify_logo_without_text.svg.png' height = '50' width = '50'></a></td>`;
                 tbody += `<td><a href='https://open.spotify.com/album/${albumUrl}'>${albumName}</a></td></tr>`;
 
                 });
@@ -79,9 +81,11 @@
             catch (error) {
                 console.error('Errore durante la visualizzazione dei dati:', error);
             }
-
+    const jsonRecentPlayedData = await fetchRecentPlayedData();
+        console.log(jsonRecentPlayedData["items"]);
         
         }
+        
         renderTable()
 
     </script>
